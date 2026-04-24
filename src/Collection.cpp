@@ -23,6 +23,7 @@ void Collection::clearCollection() {
     cards.clear();
 }
 
+// search for card by name using iterator
 Card* Collection::findCardByName(const std::string& name) {
     for (auto it = cards.begin(); it != cards.end(); ++it) {
         if (it->getName() == name) {
