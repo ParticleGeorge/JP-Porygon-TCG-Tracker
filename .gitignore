@@ -1,0 +1,23 @@
+# Build artifacts
+*.exe
+*.o
+*.app/
+*.dmg
+
+# qmake generated files
+Makefile
+Makefile.Debug
+Makefile.Release
+.qmake.stash
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+ui_*.h
+*.pro.user
+release/
+
+# macOS
+.DS_Store
+
+# Dependencies
+lib/

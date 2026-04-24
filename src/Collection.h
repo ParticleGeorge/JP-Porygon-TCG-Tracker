@@ -17,7 +17,10 @@ public:
     const std::vector<Card>& getCards() const;
 
     // method to get the number of cards in the collection
-    int getCardCount() const;
+    size_t getCardCount() const;
+
+    // method to clear the collection
+    void clearCollection();
 
     // method to find a card by name
     Card* findCardByName(const std::string& name);
@@ -25,8 +28,6 @@ public:
     // method to remove a card by name
     bool removeCardByName(const std::string& name);
 
-    // method to clear the collection
-    void clearCollection();
 };  
 
 #endif  // COLLECTION_H
