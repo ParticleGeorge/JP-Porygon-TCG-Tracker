@@ -33,3 +33,15 @@ Card* Collection::findCardByName(const std::string& name) {
 
     return nullptr;
 }
+
+// remove the card by name
+bool Collection::removeCardByName(const std::string& name) {
+        for (auto it = cards.begin(); it != cards.end(); ++it) {
+        if (it->getName() == name) {
+            cards.erase(it);
+            return true;
+        }
+    }
+
+    return false;
+}
