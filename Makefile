@@ -52,8 +52,14 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = src/main.cpp 
-OBJECTS       = main.o
+SOURCES       = src/main.cpp \
+		src/Card.cpp \
+		src/Collection.cpp \
+		src/CSVParser.cpp 
+OBJECTS       = main.o \
+		Card.o \
+		Collection.o \
+		CSVParser.o
 DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/share/qt/mkspecs/features/device_config.prf \
 		/opt/homebrew/share/qt/mkspecs/common/unix.conf \
@@ -428,7 +434,12 @@ DIST          = /opt/homebrew/share/qt/mkspecs/features/spec_pre.prf \
 		/opt/homebrew/share/qt/mkspecs/features/exceptions.prf \
 		/opt/homebrew/share/qt/mkspecs/features/yacc.prf \
 		/opt/homebrew/share/qt/mkspecs/features/lex.prf \
-		PorygonTracker.pro  src/main.cpp
+		PorygonTracker.pro src/Card.h \
+		src/Collection.h \
+		src/CSVParser.h src/main.cpp \
+		src/Card.cpp \
+		src/Collection.cpp \
+		src/CSVParser.cpp
 QMAKE_TARGET  = PorygonTracker
 DESTDIR       = 
 TARGET        = PorygonTracker.app/Contents/MacOS/PorygonTracker
@@ -1235,7 +1246,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/homebrew/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/main.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/Card.h src/Collection.h src/CSVParser.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/main.cpp src/Card.cpp src/Collection.cpp src/CSVParser.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -1291,8 +1303,21 @@ compiler_clean: compiler_moc_predefs_clean
 ####### Compile
 
 main.o: src/main.cpp /opt/homebrew/lib/QtWidgets.framework/Headers/QApplication \
-		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget
+		/opt/homebrew/lib/QtWidgets.framework/Headers/QWidget \
+		src/CSVParser.h \
+		src/Card.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o src/main.cpp
+
+Card.o: src/Card.cpp src/Card.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Card.o src/Card.cpp
+
+Collection.o: src/Collection.cpp src/Collection.h \
+		src/Card.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Collection.o src/Collection.cpp
+
+CSVParser.o: src/CSVParser.cpp src/CSVParser.h \
+		src/Card.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CSVParser.o src/CSVParser.cpp
 
 ####### Install
 
